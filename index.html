@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="可旋轉、縮放與點選的人類大腦結構教育圖譜。">
+  <meta property="og:title" content="人腦互動解剖圖譜｜Interactive Human Brain Atlas">
+  <meta property="og:description" content="以 FreeSurfer 平均皮質表面學習腦葉、深部結構、情緒網絡與化學訊號；支援中英對照。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yunching0513.github.io/interactive-brain-atlas/">
+  <meta property="og:image" content="https://yunching0513.github.io/interactive-brain-atlas/preview.png">
+  <title>人腦互動解剖圖譜｜Yunching Library</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23112621'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23c9f75a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-grain" aria-hidden="true"></div>
+  <main class="atlas-app">
+    <header class="masthead">
+      <div class="brand-block">
+        <p class="eyebrow">NEUROATLAS · 01</p>
+        <h1>人腦互動<br><span>解剖圖譜</span></h1>
+      </div>
+      <div class="intro-copy">
+        <p>先認識真實皮質外型與深部結構，再觀察情緒網絡和化學訊號的來源—路徑—情境。</p>
+        <p class="intro-en" lang="en">Learn the anatomy first, then explore how emotion networks and chemical signals change across contexts.</p>
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <span>FreeSurfer 平均皮質表面</span>
+          <span class="divider">/</span>
+          <span>非臨床定位</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="mode-bar" aria-label="圖譜視圖">
+      <button class="mode-button is-active" type="button" data-mode="exterior">
+        <span class="mode-index">01</span><span class="mode-copy">外部腦葉<small lang="en">Cortical lobes</small></span>
+      </button>
+      <button class="mode-button" type="button" data-mode="deep">
+        <span class="mode-index">02</span><span class="mode-copy">深部結構<small lang="en">Deep structures</small></span>
+      </button>
+      <button class="mode-button" type="button" data-mode="emotion">
+        <span class="mode-index">03</span><span class="mode-copy">情緒網絡<small lang="en">Emotion networks</small></span>
+      </button>
+      <button class="mode-button" type="button" data-mode="chemical">
+        <span class="mode-index">04</span><span class="mode-copy">化學訊號<small lang="en">Chemical signals</small></span>
+      </button>
+    </section>
+
+    <section id="emotion-lens" class="emotion-lens" hidden>
+      <div class="lens-heading">
+        <p>情緒情境 <span lang="en">Emotion lens</span></p>
+        <small>選一個情境，看多個區域與訊號如何協作。<span lang="en">Select a context to see a distributed network.</span></small>
+      </div>
+      <div id="scenario-buttons" class="scenario-buttons"></div>
+      <div class="scenario-explainer">
+        <p id="scenario-summary-zh"></p>
+        <p id="scenario-summary-en" lang="en"></p>
+        <div id="scenario-signals" class="scenario-signals"></div>
+      </div>
+    </section>
+
+    <section class="atlas-grid">
+      <div class="viewport-panel">
+        <div id="brain-viewport" class="brain-viewport" aria-label="可旋轉的人類大腦三維模型">
+          <canvas id="brain-canvas"></canvas>
+          <div class="orientation" aria-hidden="true">
+            <span class="orientation-top">上</span>
+            <span class="orientation-left">左</span>
+            <span class="orientation-right">右</span>
+            <span class="orientation-bottom">下</span>
+          </div>
+          <div id="hover-label" class="hover-label" role="status"></div>
+          <div class="interaction-hint">
+            <span class="mouse-mark" aria-hidden="true"></span>
+            拖曳旋轉 · 滾輪縮放 · 點選結構<br><small lang="en">Drag · Zoom · Select</small>
+          </div>
+          <div class="view-actions">
+            <button id="rotate-toggle" class="icon-button is-active" type="button" aria-pressed="true">自動旋轉 <small>Auto</small></button>
+            <button id="reset-view" class="icon-button" type="button">重設視角 <small>Reset</small></button>
+          </div>
+        </div>
+
+        <div class="explode-control">
+          <label for="explode-range">
+            <span>結構分解 <em lang="en">Exploded view</em></span>
+            <small>把相鄰結構拉開觀察 · Separate adjacent structures</small>
+          </label>
+          <input id="explode-range" type="range" min="0" max="100" value="0">
+        </div>
+      </div>
+
+      <aside class="info-panel" aria-live="polite">
+        <div class="selection-index" id="selection-index">01 / 06</div>
+        <p class="category-label" id="structure-category">大腦皮質 · 腦葉</p>
+        <p class="category-en" id="structure-category-en" lang="en">Cerebral cortex · Lobe</p>
+        <h2 id="structure-name">額葉</h2>
+        <p class="latin-name" id="structure-latin">Frontal lobe</p>
+        <p class="structure-summary" id="structure-summary">位於大腦前方，參與規劃、抑制、工作記憶、語言產出與社會判斷。</p>
+        <p class="structure-summary summary-en" id="structure-summary-en" lang="en">The anterior cerebrum supports planning, inhibition, working memory, speech production, motor control and social judgment.</p>
+
+        <div class="function-block">
+          <h3><span id="function-heading">主要功能</span> <small id="function-heading-en" lang="en">Key functions</small></h3>
+          <div class="function-tags" id="function-tags"></div>
+        </div>
+
+        <div class="signal-detail" id="signal-detail" hidden>
+          <div class="signal-source-block">
+            <h3>來源與路徑 <small lang="en">Origin & pathway</small></h3>
+            <p id="signal-source"></p>
+            <p id="signal-source-en" lang="en"></p>
+            <div id="signal-path" class="signal-path"></div>
+          </div>
+          <div class="trigger-block">
+            <h3>常見促發情境 <small lang="en">Common eliciting contexts</small></h3>
+            <div id="signal-triggers" class="trigger-list"></div>
+          </div>
+        </div>
+
+        <div class="connection-block">
+          <h3>理解重點 <small lang="en">Key caution</small></h3>
+          <p id="structure-note">它不是單一的「理性中心」；不同前額葉區域會與感覺、記憶、獎賞及運動網絡協同工作。</p>
+          <p id="structure-note-en" class="note-en" lang="en">It is not a single “rational center.” Frontal regions work with sensory, memory, reward and motor networks.</p>
+        </div>
+
+        <div class="structure-browser">
+          <div class="browser-heading">
+            <h3>本視圖項目 <small lang="en">Items in view</small></h3>
+            <span id="structure-count">6 structures</span>
+          </div>
+          <div class="structure-list" id="structure-list"></div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="atlas-footer">
+      <div>
+        <p><strong>讀圖原則：</strong>大腦功能來自分散式網絡；化學物質也不是情緒開關。彩色位置是學習導航，不代表某個腦區或分子獨占一種情緒或行為。</p>
+        <p class="footer-en" lang="en"><strong>Reading rule:</strong> emotions emerge from distributed networks; molecules are modulators, not emotion switches.</p>
+        <details class="evidence-drawer">
+          <summary>模型與科學來源 <span lang="en">Model & evidence sources</span></summary>
+          <div class="evidence-links">
+            <a href="https://nilearn.github.io/stable/modules/generated/nilearn.datasets.fetch_surf_fsaverage.html">Nilearn / FreeSurfer fsaverage5</a>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK507848/">Oxytocin · NCBI</a>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK470306/">β-Endorphin · NCBI</a>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK538239/">Cortisol / HPA axis · NCBI</a>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK513270/">Locus coeruleus / NE · NCBI</a>
+            <a href="https://www.ncbi.nlm.nih.gov/books/NBK28150/">Serotonin / Raphe · NCBI</a>
+          </div>
+        </details>
+      </div>
+      <p class="footer-mark">YUNCHING LIBRARY · 2026</p>
+    </footer>
+  </main>
+
+  <noscript>這個互動圖譜需要啟用 JavaScript。</noscript>
+  <script src="./brain-atlas.bundle.js"></script>
+</body>
+</html>

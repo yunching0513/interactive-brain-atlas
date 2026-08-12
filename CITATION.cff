@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this educational atlas, please cite the repository and the FreeSurfer/Nilearn surface sources."
+title: "Interactive Human Brain Atlas"
+type: software
+authors:
+  - family-names: "Wu"
+    given-names: "Y. C."
+year: 2026
+url: "https://github.com/yunching0513/interactive-brain-atlas"
+repository-code: "https://github.com/yunching0513/interactive-brain-atlas"
