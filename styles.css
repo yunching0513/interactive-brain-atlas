@@ -77,16 +77,16 @@ button { color: inherit; }
 
 h1 {
   margin: 10px 0 0;
-  font-family: "Iowan Old Style", "Songti TC", "Noto Serif TC", serif;
+  font-family: "Noto Sans TC", "PingFang TC", sans-serif;
   font-size: clamp(44px, 6vw, 84px);
-  line-height: 0.87;
-  letter-spacing: -0.055em;
-  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 700;
 }
 
 h1 span {
   margin-left: 0.65em;
-  font-style: italic;
+  font-style: normal;
   color: var(--ink-soft);
 }
 
@@ -128,6 +128,28 @@ h1 span {
 }
 
 .divider { opacity: 0.35; }
+
+.section-switcher {
+  display: inline-flex;
+  gap: 4px;
+  margin: 16px 0 0;
+  padding: 4px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.section-switcher a {
+  min-width: 150px;
+  padding: 9px 13px 8px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.section-switcher a:hover { color: var(--ink); background: rgba(255, 255, 255, 0.5); }
+.section-switcher a.is-active { color: #eff6ee; background: var(--ink); }
+.section-switcher span { display: block; font-size: 11px; font-weight: 750; letter-spacing: 0.05em; }
+.section-switcher small { display: block; margin-top: 2px; opacity: 0.56; font-family: Georgia, serif; font-size: 8px; font-style: italic; }
 
 .mode-bar {
   display: grid;
@@ -205,6 +227,20 @@ h1 span {
 .scenario-explainer p[lang="en"] { margin-top: 4px; color: rgba(235, 244, 238, 0.56); font-family: Georgia, serif; font-size: 9px; font-style: italic; }
 .scenario-signals { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
 .scenario-signals span { padding: 3px 6px; border: 1px solid rgba(235, 244, 238, 0.16); border-radius: 99px; color: rgba(235, 244, 238, 0.74); font-size: 8px; }
+.scenario-guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 9px;
+  color: var(--lime);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.scenario-guide-link[hidden] { display: none; }
+.scenario-guide-link span { color: rgba(235, 244, 238, 0.56); font-family: Georgia, serif; font-size: 8px; font-style: italic; font-weight: 400; }
+.scenario-guide-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .atlas-grid {
   display: grid;
@@ -332,6 +368,50 @@ h1 span {
 
 .hover-label.is-visible { opacity: 1; }
 
+.scenario-node-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scenario-node-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 84px;
+  padding: 6px 9px 5px;
+  color: rgba(241, 248, 243, 0.92);
+  border: 1px solid color-mix(in srgb, var(--node-color) 72%, transparent);
+  border-left: 3px solid var(--node-color);
+  background: rgba(8, 27, 22, 0.78);
+  box-shadow: 0 7px 24px rgba(0, 0, 0, 0.22), 0 0 18px color-mix(in srgb, var(--node-color) 22%, transparent);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  white-space: nowrap;
+}
+
+.scenario-node-label.is-visible { opacity: 0.8; }
+.scenario-node-label.is-primary {
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25), 0 0 26px color-mix(in srgb, var(--node-color) 42%, transparent);
+  opacity: 1;
+}
+.scenario-node-label::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 7px;
+  height: 1px;
+  background: var(--node-color);
+}
+.scenario-node-label strong { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+.scenario-node-label small { display: block; margin-top: 1px; color: rgba(235, 244, 238, 0.5); font-family: Georgia, serif; font-size: 7px; font-style: italic; }
+
 .explode-control {
   display: grid;
   grid-template-columns: minmax(150px, 0.36fr) 1fr;
@@ -382,11 +462,11 @@ input[type="range"]::-webkit-slider-thumb {
 
 .info-panel h2 {
   margin: 8px 0 0;
-  font-family: "Iowan Old Style", "Songti TC", serif;
+  font-family: "Noto Sans TC", "PingFang TC", sans-serif;
   font-size: clamp(37px, 3.6vw, 58px);
   line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-weight: 600;
+  letter-spacing: -0.035em;
 }
 
 .latin-name { margin: 7px 0 0; color: #6a8179; font-family: Georgia, serif; font-size: 14px; font-style: italic; }
@@ -489,6 +569,8 @@ input[type="range"]::-webkit-slider-thumb {
   .masthead { padding-bottom: 22px; }
   h1 { font-size: 49px; }
   .intro-copy { margin-left: 0; }
+  .section-switcher { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .section-switcher a { min-width: 0; }
   .mode-bar { grid-template-columns: repeat(2, 1fr); }
   .mode-button { min-height: 58px; padding: 10px 9px; font-size: 12px; text-align: left; }
   .mode-button:nth-child(2) { border-right: 0; }
@@ -503,6 +585,9 @@ input[type="range"]::-webkit-slider-thumb {
   .explode-control { grid-template-columns: 1fr; gap: 14px; }
   .info-panel { padding: 25px 20px; }
   .trigger-list { grid-template-columns: 1fr; }
+  .scenario-node-label { min-width: 0; padding: 4px 6px; }
+  .scenario-node-label strong { font-size: 8px; }
+  .scenario-node-label small { display: none; }
   .atlas-footer { flex-direction: column; }
 }
 

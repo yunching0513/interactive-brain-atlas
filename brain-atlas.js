@@ -360,13 +360,51 @@ addTube(deepGroup, 'hippocampus', 'deep', [[1.03, -0.48, -0.72], [1.14, -0.66, -
 addTube(deepGroup, 'corpusCallosum', 'deep', [[-1.35, 0.45, -0.35], [-0.65, 0.9, -0.25], [0, 1.05, -0.18], [0.65, 0.9, -0.25], [1.35, 0.45, -0.35]], 0.16);
 
 // 情緒與社會認知網絡：節點為概念性位置，連線顯示分散式協作。
+function createGlowTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 128;
+  canvas.height = 128;
+  const context = canvas.getContext('2d');
+  const gradient = context.createRadialGradient(64, 64, 4, 64, 64, 62);
+  gradient.addColorStop(0, 'rgba(255,255,255,0.98)');
+  gradient.addColorStop(0.18, 'rgba(255,255,255,0.7)');
+  gradient.addColorStop(0.48, 'rgba(255,255,255,0.22)');
+  gradient.addColorStop(1, 'rgba(255,255,255,0)');
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 128, 128);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+const glowTexture = createGlowTexture();
 const emotionNodes = [];
+const emotionVisuals = new Map();
 function addNetworkNode(id, positions, scale = 0.24) {
   positions.forEach((position) => {
     const root = addOrganicPart(emotionGroup, id, 'emotion', position, [scale, scale, scale], [0, 0, 0], nodeGeometry);
     const mesh = root.children[0];
+    mesh.material.transparent = true;
     mesh.material.emissive.set(structures[id].color);
     mesh.material.emissiveIntensity = 0.14;
+
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: glowTexture,
+      color: structures[id].color,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthTest: false,
+      depthWrite: false
+    }));
+    const glowScale = Math.max(1.22, scale * 4.5);
+    glow.scale.set(glowScale, glowScale, 1);
+    glow.visible = false;
+    root.add(glow);
+
+    const visual = { root, mesh, glow, baseScale: mesh.scale.clone(), glowScale };
+    if (!emotionVisuals.has(id)) emotionVisuals.set(id, []);
+    emotionVisuals.get(id).push(visual);
     emotionNodes.push({ id, position: new THREE.Vector3(...position) });
   });
 }
@@ -479,7 +517,8 @@ scene.add(dust);
 
 let currentMode = 'exterior';
 let selectedId = null;
-let autoRotate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let autoRotate = !reduceMotion;
 let explosion = 0;
 let activeScenario = 'threat';
 
@@ -510,8 +549,19 @@ const ui = {
   scenarioButtons: document.querySelector('#scenario-buttons'),
   scenarioZh: document.querySelector('#scenario-summary-zh'),
   scenarioEn: document.querySelector('#scenario-summary-en'),
-  scenarioSignals: document.querySelector('#scenario-signals')
+  scenarioSignals: document.querySelector('#scenario-signals'),
+  scenarioGuide: document.querySelector('#scenario-guide-link'),
+  nodeLabels: document.querySelector('#scenario-node-labels')
 };
+
+function syncUrlState() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('mode', currentMode);
+  if (currentMode === 'emotion') url.searchParams.set('scenario', activeScenario);
+  else url.searchParams.delete('scenario');
+  if (selectedId) url.searchParams.set('structure', selectedId);
+  window.history.replaceState({}, '', url);
+}
 
 function setGroupVisibility(mode) {
   exteriorGroup.visible = mode === 'exterior';
@@ -530,6 +580,21 @@ function updateSelectionVisuals() {
       const inScenario = currentMode === 'emotion' && mesh.userData.mode === 'emotion' && scenarioNodes.has(id);
       mesh.material.emissive.set(active || inScenario ? structures[id].color : 0x000000);
       mesh.material.emissiveIntensity = active ? 0.55 : (inScenario ? 0.3 : (mesh.userData.mode === 'emotion' ? 0.04 : 0));
+    });
+  });
+
+  emotionVisuals.forEach((visuals, id) => {
+    const inScenario = currentMode === 'emotion' && scenarioNodes.has(id);
+    const selected = currentMode === 'emotion' && selectedId === id;
+    const focused = inScenario || selected;
+    visuals.forEach(({ mesh, glow, baseScale }) => {
+      mesh.material.opacity = currentMode === 'emotion' ? (focused ? 1 : 0.16) : 1;
+      mesh.material.emissive.set(focused ? structures[id].color : 0x000000);
+      mesh.material.emissiveIntensity = selected ? 0.9 : (inScenario ? 0.66 : 0);
+      mesh.scale.copy(baseScale).multiplyScalar(selected ? 1.2 : (inScenario ? 1.1 : 0.78));
+      glow.visible = focused;
+      glow.material.opacity = selected ? 0.96 : (inScenario ? 0.62 : 0);
+      glow.userData.baseOpacity = glow.material.opacity;
     });
   });
 
@@ -571,7 +636,7 @@ function renderStructureList() {
   ui.count.textContent = `${ids.length} ${currentMode === 'chemical' ? 'signals' : 'structures'}`;
 }
 
-function selectStructure(id) {
+function selectStructure(id, syncAddress = true) {
   const data = structures[id];
   if (!data) return;
   const translated = structureTranslations[id] || {};
@@ -616,7 +681,66 @@ function selectStructure(id) {
     }));
   }
   updateSelectionVisuals();
+  updateScenarioLabelState();
   renderStructureList();
+  if (syncAddress) syncUrlState();
+}
+
+function updateScenarioLabelState() {
+  ui.nodeLabels.querySelectorAll('.scenario-node-label').forEach((label) => {
+    label.classList.toggle('is-primary', label.dataset.structureId === selectedId);
+  });
+}
+
+function renderScenarioNodeLabels() {
+  ui.nodeLabels.replaceChildren();
+  if (currentMode !== 'emotion') return;
+  emotionScenarios[activeScenario].nodes.forEach((id, index) => {
+    if (!emotionVisuals.has(id)) return;
+    const translated = structureTranslations[id] || {};
+    const label = document.createElement('div');
+    label.className = 'scenario-node-label';
+    label.dataset.structureId = id;
+    label.dataset.labelIndex = String(index);
+    label.style.setProperty('--node-color', structures[id].color);
+    label.innerHTML = `<strong>${structures[id].name}</strong><small lang="en">${translated.nameEn || structures[id].latin}</small>`;
+    ui.nodeLabels.appendChild(label);
+  });
+  updateScenarioLabelState();
+}
+
+function positionScenarioNodeLabels() {
+  if (currentMode !== 'emotion') return;
+  const width = viewport.clientWidth;
+  const height = viewport.clientHeight;
+  const labelNudges = {
+    amygdala: { x: -18, y: 44 },
+    hypothalamus: { x: 16, y: 8 },
+    anteriorInsula: { x: -8, y: -16 },
+    acc: { x: 10, y: -6 },
+    dlpfc: { x: 10, y: -22 },
+    ventralStriatum: { x: -18, y: 24 },
+    mPfc: { x: 18, y: -34 },
+    pcc: { x: 10, y: 28 },
+    tpj: { x: -8, y: 18 },
+    hippocampus: { x: 12, y: 36 }
+  };
+  ui.nodeLabels.querySelectorAll('.scenario-node-label').forEach((label) => {
+    const visual = emotionVisuals.get(label.dataset.structureId)?.[0];
+    if (!visual) return;
+    const projected = new THREE.Vector3();
+    visual.root.getWorldPosition(projected);
+    projected.project(camera);
+    const x = (projected.x * 0.5 + 0.5) * width;
+    const y = (-projected.y * 0.5 + 0.5) * height;
+    const visible = projected.z > -1 && projected.z < 1 && x > 18 && x < width - 18 && y > 18 && y < height - 18;
+    const index = Number(label.dataset.labelIndex || 0);
+    const nudge = labelNudges[label.dataset.structureId] || { x: 0, y: 0 };
+    const offsetX = x < width * 0.5 ? -104 : 14;
+    const offsetY = -18 + ((index % 3) - 1) * 16;
+    label.style.transform = `translate3d(${Math.round(x + offsetX + nudge.x)}px, ${Math.round(y + offsetY + nudge.y)}px, 0)`;
+    label.classList.toggle('is-visible', visible);
+  });
 }
 
 function renderScenarioLens() {
@@ -638,23 +762,31 @@ function renderScenarioLens() {
     badge.textContent = `${chemicalSignals[id].name} · ${chemicalSignals[id].nameEn}`;
     return badge;
   }));
+  ui.scenarioGuide.hidden = !scenario.topic;
+  if (scenario.topic) ui.scenarioGuide.href = `./topics.html?topic=${scenario.topic}`;
 }
 
-function selectScenario(id) {
+function selectScenario(id, syncAddress = true) {
   activeScenario = id;
   renderScenarioLens();
-  if (currentMode === 'emotion') selectStructure(emotionScenarios[id].nodes[0]);
+  if (currentMode === 'emotion') {
+    selectStructure(emotionScenarios[id].nodes[0], false);
+    renderScenarioNodeLabels();
+  }
   else updateSelectionVisuals();
+  if (syncAddress) syncUrlState();
 }
 
-function setMode(mode) {
+function setMode(mode, syncAddress = true) {
   currentMode = mode;
   setGroupVisibility(mode);
   ui.emotionLens.hidden = mode !== 'emotion';
   document.querySelectorAll('.mode-button').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.mode === mode);
   });
-  selectStructure(modeDefaults[mode]);
+  selectStructure(modeDefaults[mode], false);
+  renderScenarioNodeLabels();
+  if (syncAddress) syncUrlState();
 }
 
 document.querySelectorAll('.mode-button').forEach((button) => button.addEventListener('click', () => setMode(button.dataset.mode)));
@@ -774,8 +906,16 @@ function resize() {
 const resizeObserver = new ResizeObserver(resize);
 resizeObserver.observe(viewport);
 resize();
+const initialParams = new URLSearchParams(window.location.search);
+const requestedScenario = initialParams.get('scenario');
+if (requestedScenario && emotionScenarios[requestedScenario]) activeScenario = requestedScenario;
 renderScenarioLens();
-setMode('exterior');
+const requestedMode = initialParams.get('mode');
+const initialMode = modeIds[requestedMode] ? requestedMode : 'exterior';
+setMode(initialMode, false);
+const requestedStructure = initialParams.get('structure');
+if (requestedStructure && modeIds[initialMode].includes(requestedStructure)) selectStructure(requestedStructure, false);
+syncUrlState();
 ui.rotate.classList.toggle('is-active', autoRotate);
 ui.rotate.setAttribute('aria-pressed', String(autoRotate));
 
@@ -787,6 +927,18 @@ function animate(time) {
   if (currentMode === 'chemical' && chemicalVisuals.has(selectedId)) {
     const pulse = 0.4 + Math.sin(time * 0.0035) * 0.18;
     chemicalVisuals.get(selectedId).sourceMeshes.forEach((mesh) => { mesh.material.emissiveIntensity = pulse; });
+  }
+  if (currentMode === 'emotion') {
+    const scenarioNodes = new Set(emotionScenarios[activeScenario].nodes);
+    emotionVisuals.forEach((visuals, id) => {
+      if (!scenarioNodes.has(id) && id !== selectedId) return;
+      visuals.forEach(({ glow, glowScale }, visualIndex) => {
+        const wave = reduceMotion ? 1 : 0.92 + Math.sin(time * 0.004 + visualIndex * 0.85) * 0.08;
+        glow.scale.set(glowScale * wave, glowScale * wave, 1);
+        glow.material.opacity = glow.userData.baseOpacity * (reduceMotion ? 1 : 0.82 + Math.sin(time * 0.004 + visualIndex * 0.85) * 0.18);
+      });
+    });
+    positionScenarioNodeLabels();
   }
   dust.rotation.y -= delta * 0.008;
   renderer.render(scene, camera);

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="以證據校準方式說明精神內耗、戀愛依附、數位公憤與公眾審議所涉及的大腦網絡、情境與行動策略。">
+  <title>大腦 × 情境概念專題｜Yunching Library</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23112621'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23c9f75a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./topics.css">
+</head>
+<body class="topics-page">
+  <div class="page-grain" aria-hidden="true"></div>
+  <main class="guide-app">
+    <header class="guide-masthead">
+      <div>
+        <p class="eyebrow">NEUROATLAS · FIELD NOTES</p>
+        <h1 class="guide-title">大腦 × 情境<br><span>概念專題</span></h1>
+      </div>
+      <div class="guide-intro">
+        <p>四篇文章經過證據校準後，整理成可切換的學習分頁。先理解情境與網絡，再回到 3D 圖譜定位。</p>
+        <p lang="en">Four evidence-calibrated guides connect lived contexts to distributed brain networks and the interactive atlas.</p>
+        <div class="calibration-key" aria-label="證據層級圖例">
+          <span><i class="evidence-dot human"></i>人類研究 <em>Human evidence</em></span>
+          <span><i class="evidence-dot cross"></i>跨物種線索 <em>Cross-species</em></span>
+          <span><i class="evidence-dot inference"></i>機制推論 <em>Inference</em></span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="section-switcher" aria-label="學習區域">
+      <a href="./index.html">
+        <span>3D 大腦圖譜</span><small lang="en">Interactive atlas</small>
+      </a>
+      <a class="is-active" href="./topics.html" aria-current="page">
+        <span>概念專題分頁</span><small lang="en">Four learning guides</small>
+      </a>
+    </nav>
+
+    <section class="guide-frame">
+      <nav class="topic-tabs" role="tablist" aria-label="概念專題">
+        <p class="tabs-label">選擇主題 <span lang="en">Choose a guide</span></p>
+        <button id="tab-rumination" class="topic-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="panel-rumination" tabindex="0" data-topic="rumination">
+          <span class="tab-number">01</span><strong>精神內耗</strong><small lang="en">Rumination</small>
+        </button>
+        <button id="tab-love" class="topic-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-love" tabindex="-1" data-topic="love">
+          <span class="tab-number">02</span><strong>戀愛與依附</strong><small lang="en">Love & attachment</small>
+        </button>
+        <button id="tab-outrage" class="topic-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-outrage" tabindex="-1" data-topic="outrage">
+          <span class="tab-number">03</span><strong>數位公憤</strong><small lang="en">Digital outrage</small>
+        </button>
+        <button id="tab-deliberation" class="topic-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-deliberation" tabindex="-1" data-topic="deliberation">
+          <span class="tab-number">04</span><strong>公眾審議</strong><small lang="en">Public deliberation</small>
+        </button>
+        <div class="tabs-caution">
+          <strong>讀圖原則</strong>
+          <p>亮起的節點代表「與這個學習情境有關」，不是診斷、測謊或人格判定。</p>
+        </div>
+      </nav>
+
+      <div class="topic-panels">
+        <article id="panel-rumination" class="topic-panel" role="tabpanel" aria-labelledby="tab-rumination" data-topic-panel="rumination" style="--topic-accent:#789bb4; --topic-deep:#18313b;">
+          <header class="topic-hero">
+            <div>
+              <p class="topic-kicker">REPETITIVE NEGATIVE THINKING · RNT</p>
+              <h2>精神內耗：當思考沒有轉成行動</h2>
+              <p class="topic-lead">「精神內耗」不是正式診斷。較精確的學術入口是反芻、擔憂與重複性負向思考：注意被負面內容黏住，自我參照不斷回圈，而具體問題解決與外部行動逐漸減少。</p>
+            </div>
+            <div class="topic-stamp"><span>跨診斷歷程</span><small lang="en">Transdiagnostic process</small></div>
+          </header>
+
+          <div class="atlas-jumps" aria-label="回到 3D 圖譜">
+            <a href="./index.html?mode=emotion&scenario=rumination&structure=pcc">在 3D 中點亮反芻網絡 <span lang="en">Open network</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=cortisol">查看皮質醇／HPA 軸 <span lang="en">Cortisol</span> ↗</a>
+          </div>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>01</span><h3>回圈如何形成</h3><small lang="en">A learning model, not a diagnosis</small></div>
+            <div class="mechanism-chain five-step">
+              <div><b>觸發</b><p>失落、不確定、自我落差或未解決目標</p></div>
+              <div><b>標記為重要</b><p>前島葉／前扣帶持續把內在訊號放在前景</p></div>
+              <div><b>自我回圈</b><p>mPFC、PCC／楔前葉反覆組織自我敘事</p></div>
+              <div><b>控制吃力</b><p>dlPFC 的更新、抑制與轉移變得更困難</p></div>
+              <div><b>逃避強化</b><p>行動與正向回饋減少，留下更多反芻空間</p></div>
+            </div>
+          </section>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>02</span><h3>三個網絡，不是一個「內耗腦區」</h3><small lang="en">Distributed network view</small></div>
+            <div class="network-cards">
+              <article><i style="--node:#8067c8"></i><p class="network-name">預設模式網絡 <span>DMN</span></p><h4>建立內在敘事</h4><p>mPFC、PCC／楔前葉與內側顳葉支援自我參照、回憶與情境模擬。它正常且必要；問題在於內容、持續時間與切換彈性。</p></article>
+              <article><i style="--node:#f0a33d"></i><p class="network-name">顯著性網絡 <span>SN</span></p><h4>決定現在什麼最重要</h4><p>前島葉與前扣帶協助整合身體狀態、衝突與注意切換。內耗時，負面想法可能反覆取得優先權。</p></article>
+              <article><i style="--node:#4e89db"></i><p class="network-name">執行控制網絡 <span>ECN</span></p><h4>更新、抑制與轉向</h4><p>dlPFC 與額頂葉控制系統維持目標並排除干擾。壓力、睡眠與任務負荷都會影響其表現。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section split-section">
+            <div>
+              <div class="section-heading compact"><span>03</span><h3>先分清楚你正在做什麼</h3></div>
+              <dl class="definition-list">
+                <div><dt>反芻 Rumination</dt><dd>多繞著過去、原因、損失與自我評價打轉。</dd></div>
+                <div><dt>擔憂 Worry</dt><dd>多面向未來威脅，以語言式預演試圖取得控制。</dd></div>
+                <div><dt>問題解決 Problem solving</dt><dd>能說出目標、限制、下一步與回饋時間；思考會產生可觀察行動。</dd></div>
+              </dl>
+            </div>
+            <div>
+              <div class="section-heading compact"><span>04</span><h3>從回圈切回現實</h3></div>
+              <ol class="action-list">
+                <li><b>命名歷程：</b>「我正在反芻」，而不是「這個想法一定是真的」。</li>
+                <li><b>把為什麼改成如何：</b>寫下一個 10–20 分鐘內可完成的具體步驟。</li>
+                <li><b>先行動再等動機：</b>用行為活化恢復日常、連結與可獲得的回饋。</li>
+                <li><b>練習去中心化：</b>正念不是清空思緒，而是看見想法後重新選擇注意方向。</li>
+                <li><b>調整生理底盤：</b>睡眠、規律活動、運動與社會支持會影響認知彈性。</li>
+              </ol>
+            </div>
+          </section>
+
+          <aside class="safety-note">
+            <strong>何時需要專業協助？</strong>
+            <p>若反覆思考持續影響睡眠、工作、關係或日常功能，或出現自傷／自殺念頭，請尋求心理師、精神科醫師、當地危機專線或緊急服務。此頁不能取代評估與治療。</p>
+          </aside>
+
+          <section class="evidence-ladder">
+            <div class="human"><span>人類研究</span><p>系統性回顧顯示，憂鬱反芻與 DMN 內外連結差異相關；RF-CBT、行為活化與正念認知治療各有臨床試驗或統合證據。</p></div>
+            <div class="inference"><span>避免過度解讀</span><p>DMN 活躍不等於反芻，低 HRV 也不能診斷內耗；個人的主觀困擾與功能影響比單一生理指標更重要。</p></div>
+          </section>
+
+          <details class="topic-sources">
+            <summary>證據與來源 <span lang="en">Evidence & sources</span></summary>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12241886/">DMN 與憂鬱反芻：系統性回顧</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10917163/">反芻與抑制控制：神經影像統合分析</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10654545/">RF-CBT：預註冊隨機臨床試驗</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7390059/">行為活化：Cochrane 系統性回顧</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12382274/">MBCT 與反芻：RCT 統合分析</a>
+          </details>
+        </article>
+
+        <article id="panel-love" class="topic-panel" role="tabpanel" aria-labelledby="tab-love" data-topic-panel="love" style="--topic-accent:#e36b91; --topic-deep:#462737;" hidden>
+          <header class="topic-hero">
+            <div>
+              <p class="topic-kicker">LOVE · ATTRACTION · ATTACHMENT</p>
+              <h2>戀愛與依附：獎賞、記憶與關係規範</h2>
+              <p class="topic-lead">戀愛不是一種分泌物，也不是固定腦區。吸引、依附、性慾、照護與承諾可以重疊，也能在不同時間尺度與不同對象上部分分離；文化、協議與選擇同樣是關係的一部分。</p>
+            </div>
+            <div class="topic-stamp"><span>跨物種轉譯</span><small lang="en">Translate with caution</small></div>
+          </header>
+
+          <div class="atlas-jumps">
+            <a href="./index.html?mode=emotion&scenario=romance&structure=ventralStriatum">在 3D 中點亮戀愛／依附網絡 <span lang="en">Open network</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=oxytocin">查看催產素來源與路徑 <span lang="en">Oxytocin</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=dopamine">查看多巴胺路徑 <span lang="en">Dopamine</span> ↗</a>
+          </div>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>01</span><h3>三套動機不是三個獨立開關</h3><small lang="en">A useful heuristic</small></div>
+            <div class="three-systems">
+              <article><p class="system-index">A</p><h4>性慾 <span>Lust</span></h4><p>身體性驅力與性荷爾蒙相關，但會受健康、關係、文化、壓力與個體差異影響。</p></article>
+              <article><p class="system-index">B</p><h4>浪漫吸引 <span>Attraction</span></h4><p>注意聚焦、動機與獎賞學習常涉及 VTA—腹側紋狀體等路徑；「想要」不等於關係品質。</p></article>
+              <article><p class="system-index">C</p><h4>依附 <span>Attachment</span></h4><p>熟悉、安全、社會記憶與壓力緩衝由廣泛網絡形成；催產素只是調節者之一。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>02</span><h3>伴侶連結的網絡地圖</h3><small lang="en">Reward × social memory × regulation</small></div>
+            <div class="network-cards">
+              <article><i style="--node:#e5ca3d"></i><p class="network-name">VTA／腹側紋狀體 <span>Reward</span></p><h4>讓某個人變得特別</h4><p>多巴胺參與預測、動機與學習，把伴侶線索與獎賞價值建立關聯；它不等於愛或快樂。</p></article>
+              <article><i style="--node:#49b5a7"></i><p class="network-name">海馬迴／杏仁核 <span>Context</span></p><h4>記住人、情境與情緒價值</h4><p>關係經驗會與地點、事件、安全或威脅訊號結合，形成可更新的社會記憶。</p></article>
+              <article><i style="--node:#a66bd0"></i><p class="network-name">mPFC／TPJ <span>Meaning</span></p><h4>理解意圖與維持承諾</h4><p>觀點取替、價值評估與自我—他人推論支援關係決策；承諾不是單一神經反射。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section split-section">
+            <div>
+              <div class="section-heading compact"><span>03</span><h3>化學物質扮演什麼角色</h3></div>
+              <dl class="definition-list">
+                <div><dt>多巴胺 Dopamine</dt><dd>動機、學習與預測誤差；新奇可能提高注意，但不能推導「真正的愛」。</dd></div>
+                <div><dt>催產素 Oxytocin</dt><dd>調節社會線索與依附相關歷程；人類信任效應不穩定，並依情境、性別與依附風格而變。</dd></div>
+                <div><dt>血管加壓素 Vasopressin</dt><dd>田鼠研究提供伴侶偏好與防衛的機制線索；對人類關係的直接推論有限。</dd></div>
+                <div><dt>內源性阿片 Opioids</dt><dd>可能參與社會舒適、分離痛苦與親密互動的獎賞感。</dd></div>
+              </dl>
+            </div>
+            <div>
+              <div class="section-heading compact"><span>04</span><h3>三個常見誤解</h3></div>
+              <div class="myth-list">
+                <p><b>不是「催產素＝忠誠」。</b>大型預註冊重複研究並未發現催產素可靠提高陌生人信任。</p>
+                <p><b>沒有「出軌基因」。</b>單一基因關聯不能預測個人的忠誠、婚姻成敗或倫理選擇。</p>
+                <p><b>大腦不決定關係形式。</b>單偶、非單偶或其他關係安排的核心仍是知情同意、坦誠協議、安全與公平。</p>
+              </div>
+            </div>
+          </section>
+
+          <aside class="ethics-note">
+            <strong>關係倫理比神經化學更接近可行動層</strong>
+            <p>吸引可能自動出現，行動與承諾則包含價值、界線、溝通與責任。用「大腦就是如此」替欺瞞或傷害卸責，是把描述性研究誤當成道德許可。</p>
+          </aside>
+
+          <section class="evidence-ladder three-levels">
+            <div class="cross"><span>跨物種線索</span><p>多巴胺、催產素與血管加壓素的受體機制，主要來自草原田鼠等動物模型。</p></div>
+            <div class="human"><span>人類研究</span><p>影像研究支持獎賞、記憶與社會認知網絡參與浪漫愛與依附，但樣本與任務有限。</p></div>
+            <div class="inference"><span>不可直接推論</span><p>動物的伴侶偏好、攻擊或受體分布，不能直接預測個人的關係形式、忠誠與基因命運。</p></div>
+          </section>
+
+          <details class="topic-sources">
+            <summary>證據與來源 <span lang="en">Evidence & sources</span></summary>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10295201/">戀愛與伴侶連結：人類與動物視角綜述</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5072360/">草原田鼠伴侶結合、分離與社會緩衝</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2847497/">社會神經科學的跨物種轉譯挑戰</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32514040/">催產素與信任：大型預註冊重複研究</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/38713749/">內源性催產素與人際互動：系統性回顧與統合分析</a>
+          </details>
+        </article>
+
+        <article id="panel-outrage" class="topic-panel" role="tabpanel" aria-labelledby="tab-outrage" data-topic-panel="outrage" style="--topic-accent:#ed6d50; --topic-deep:#43291f;" hidden>
+          <header class="topic-hero">
+            <div>
+              <p class="topic-kicker">ONLINE DISINHIBITION · MORAL OUTRAGE</p>
+              <h2>數位公憤：人、平台與群體規範的回饋迴圈</h2>
+              <p class="topic-lead">極端言論不能化約成「前額葉失靈」或某種人格。低社會線索、即時情緒、群體邊界、平台獎賞與個體差異會彼此強化；同一個普通使用者在不同情境下，也可能表現得非常不同。</p>
+            </div>
+            <div class="topic-stamp"><span>情境 × 平台</span><small lang="en">Person × platform</small></div>
+          </header>
+
+          <div class="atlas-jumps">
+            <a href="./index.html?mode=emotion&scenario=outrage&structure=anteriorInsula">在 3D 中點亮數位公憤網絡 <span lang="en">Open network</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=dopamine">查看多巴胺與社會回饋 <span lang="en">Dopamine</span> ↗</a>
+          </div>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>01</span><h3>一個可被平台放大的學習迴圈</h3><small lang="en">Reinforcement and norm learning</small></div>
+            <div class="mechanism-chain five-step">
+              <div><b>模糊線索</b><p>缺少表情、語氣與即時後果，較容易錯讀意圖</p></div>
+              <div><b>威脅／厭惡</b><p>杏仁核、前島與前扣帶把事件標記為重要</p></div>
+              <div><b>快速表態</b><p>時間壓力、疲勞與群體規範減少反思空間</p></div>
+              <div><b>社會獎賞</b><p>按讚、轉發與同儕支持提高該表達的價值</p></div>
+              <div><b>規範學習</b><p>使用者更可能在未來用相似強度表達公憤</p></div>
+            </div>
+          </section>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>02</span><h3>三層一起看，避免「腦區決定論」</h3></div>
+            <div class="triad-grid">
+              <article><span>PERSON</span><h4>個體狀態</h4><p>情緒、睡眠、壓力、認知負荷、衝動性、既有信念與人格特質會改變反應機率。</p></article>
+              <article><span>CONTEXT</span><h4>社會情境</h4><p>匿名、非同步、模糊意圖、內外團體界線與先前留言塑造「現在這樣說是否正常」。</p></article>
+              <article><span>PLATFORM</span><h4>平台設計</h4><p>可見的社會回饋、排序、推播與低發言成本，會改變注意力與強化學習。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section split-section">
+            <div>
+              <div class="section-heading compact"><span>03</span><h3>相關網絡</h3></div>
+              <dl class="definition-list">
+                <div><dt>杏仁核／前島／ACC</dt><dd>威脅、顯著性、厭惡、衝突與身體反應；不是「憤怒中心」。</dd></div>
+                <div><dt>腹側紋狀體</dt><dd>社會回饋與價值學習；亮起不代表惡意或成癮。</dd></div>
+                <div><dt>dlPFC／mPFC</dt><dd>規則、後果、重新評估與社會價值；控制不是永遠成功。</dd></div>
+                <div><dt>TPJ／心智化網絡</dt><dd>推測他人意圖與觀點；文字也能產生同理，但需要足夠脈絡。</dd></div>
+              </dl>
+            </div>
+            <div>
+              <div class="section-heading compact"><span>04</span><h3>把「煞車」放進環境</h3></div>
+              <ol class="action-list">
+                <li><b>個人：</b>發送前命名情緒、重述對方觀點、延遲高喚起回覆。</li>
+                <li><b>討論區：</b>提示閱讀內容、限制連續轉發、提供修訂與撤回機會。</li>
+                <li><b>平台：</b>降低單純以互動量放大高情緒內容，測試健康規範與摩擦設計。</li>
+                <li><b>社群：</b>由可信任成員示範不同意但不去人格化的回應方式。</li>
+              </ol>
+            </div>
+          </section>
+
+          <aside class="ethics-note">
+            <strong>不能用腦科學替人貼標籤</strong>
+            <p>網路貼文無法證明某人的杏仁核、皮質醇、催產素或人格異常。神經科學可用來提出可測試的環境假說，不能取代內容判讀、社會脈絡、法律責任與平台治理。</p>
+          </aside>
+
+          <section class="evidence-ladder">
+            <div class="human"><span>人類行為證據</span><p>兩項預註冊 Twitter 觀察研究與兩項實驗顯示，公憤表達獲得正向回饋後，未來表達機率會提高，且社群規範也會影響強度。</p></div>
+            <div class="inference"><span>機制推論</span><p>把按讚直接說成「多巴胺劫持」、或把線上匿名直接等同特定腦區停擺，超出了現有證據可支持的範圍。</p></div>
+          </section>
+
+          <details class="topic-sources">
+            <summary>證據與來源 <span lang="en">Evidence & sources</span></summary>
+            <a href="https://doi.org/10.1126/sciadv.abe5641">社會學習放大線上道德公憤：Science Advances</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5791909/">情境如何使普通使用者參與惡意留言</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7939028/">道德信念與支持暴力的神經機制</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6347450/">催產素與群體衝突：情境依賴效應</a>
+          </details>
+        </article>
+
+        <article id="panel-deliberation" class="topic-panel" role="tabpanel" aria-labelledby="tab-deliberation" data-topic-panel="deliberation" style="--topic-accent:#5da277; --topic-deep:#1b382b;" hidden>
+          <header class="topic-hero">
+            <div>
+              <p class="topic-kicker">PSYCHOLOGICAL SAFETY · PROCEDURAL JUSTICE</p>
+              <h2>公眾審議：先讓人能思考，再要求共同思考</h2>
+              <p class="topic-lead">公眾參與的神經行為設計，不是操控荷爾蒙，而是降低不必要威脅、保障發言權、提高資訊可理解性，並讓回應與權力分配可被驗證。真正的信任來自程序與履約，不是會場氣氛。</p>
+            </div>
+            <div class="topic-stamp"><span>安全 ≠ 同意</span><small lang="en">Safety is not compliance</small></div>
+          </header>
+
+          <div class="atlas-jumps">
+            <a href="./index.html?mode=emotion&scenario=deliberation&structure=dlpfc">在 3D 中點亮公眾審議網絡 <span lang="en">Open network</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=oxytocin">查看催產素的情境限制 <span lang="en">Oxytocin caution</span> ↗</a>
+            <a href="./index.html?mode=chemical&structure=cortisol">查看 HPA 壓力軸 <span lang="en">Stress axis</span> ↗</a>
+          </div>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>01</span><h3>把參與流程當成一段狀態轉換</h3><small lang="en">Before · during · after</small></div>
+            <div class="process-timeline">
+              <article><span>BEFORE</span><h4>先處理威脅來源</h4><p>釐清哪些事項可改、誰承擔風險、資料缺口、代表性、申訴與退出路徑。</p></article>
+              <article><span>DURING</span><h4>讓理解與衝突並存</h4><p>平等發言、敘事加資料、觀點重述、分組與暫停；降溫不是壓制異議。</p></article>
+              <article><span>AFTER</span><h4>用回應建立信任</h4><p>公開採納／未採納理由、責任人、時程、修正紀錄與再次參與入口。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section">
+            <div class="section-heading"><span>02</span><h3>相關網絡能告訴我們什麼</h3><small lang="en">Design implications, not manipulation</small></div>
+            <div class="network-cards">
+              <article><i style="--node:#f0a33d"></i><p class="network-name">前島／ACC <span>Salience</span></p><h4>衝突與被忽視感會占據注意</h4><p>承認損失、清楚規則與可預測流程，能減少額外不確定性；不能把抗議者標成「杏仁核劫持」。</p></article>
+              <article><i style="--node:#4e89db"></i><p class="network-name">dlPFC <span>Control</span></p><h4>複雜比較需要時間與容量</h4><p>短講、可視化、休息與分階段決策，有助降低工作記憶負荷。</p></article>
+              <article><i style="--node:#a66bd0"></i><p class="network-name">mPFC／TPJ <span>Mentalizing</span></p><h4>觀點取替需要真實脈絡</h4><p>人物經驗與地圖資料可以互補；故事不應取代證據，資料也不應抹去生活經驗。</p></article>
+            </div>
+          </section>
+
+          <section class="topic-section split-section">
+            <div>
+              <div class="section-heading compact"><span>03</span><h3>六項設計檢核</h3></div>
+              <ul class="check-list">
+                <li>座位與發言規則是否放大權力階級？</li>
+                <li>受影響者是否能用自己的語言表達？</li>
+                <li>資料是否可理解、可質疑、可追溯？</li>
+                <li>主持人是否能在高喚起時提供暫停與再進場？</li>
+                <li>哪些決策權真的交給參與者？</li>
+                <li>會後是否公開回應與採納理由？</li>
+              </ul>
+            </div>
+            <div>
+              <div class="section-heading compact"><span>04</span><h3>不要只測量「有沒有共識」</h3></div>
+              <div class="metric-grid">
+                <span>代表性<small>Representation</small></span>
+                <span>理解度<small>Understanding</small></span>
+                <span>發言分布<small>Voice balance</small></span>
+                <span>程序公平<small>Procedural fairness</small></span>
+                <span>回應性<small>Responsiveness</small></span>
+                <span>再次參與<small>Future participation</small></span>
+              </div>
+            </div>
+          </section>
+
+          <aside class="ethics-note">
+            <strong>神經知情，不是神經操控</strong>
+            <p>共食、圓圈、敘事或呼吸不能保證催產素升高，也不能取代補償、資訊透明、實質授權與法律權利。若流程只想讓民眾平靜並同意，仍然是操弄，而不是審議。</p>
+          </aside>
+
+          <section class="evidence-ladder">
+            <div class="human"><span>較穩定的制度證據</span><p>發言權、透明理由、公平待遇與政府回應性，較一致地與權威信任及政策支持相關。</p></div>
+            <div class="inference"><span>較弱的神經化學主張</span><p>人類催產素與信任的因果證據不一致；不能宣稱某種空間、食物或故事會可靠「分泌信任」。</p></div>
+          </section>
+
+          <details class="topic-sources">
+            <summary>證據與來源 <span lang="en">Evidence & sources</span></summary>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/26581735/">催產素是否提高人類信任：批判性回顧</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32514040/">催產素與信任：大型預註冊重複研究</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12816024/">發言權、透明與程序正義的跨國情境實驗</a>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3108886/">參與、程序公平、信任與合作的實驗研究</a>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <footer class="guide-footer">
+      <p><strong>科學邊界：</strong>腦區與化學訊號只能協助組織問題，不能單獨解釋人格、道德、關係選擇或政治立場。</p>
+      <a href="./index.html">返回 3D 大腦圖譜 <span lang="en">Back to atlas</span> →</a>
+    </footer>
+  </main>
+
+  <noscript>這些分頁需要啟用 JavaScript；你仍可使用 <a href="./index.html">3D 圖譜</a>。</noscript>
+  <script src="./topics.js"></script>
+</body>
+</html>
