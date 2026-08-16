@@ -11,6 +11,9 @@
   <meta property="og:image" content="https://yunching0513.github.io/interactive-brain-atlas/preview.png">
   <title>人腦互動解剖圖譜｜Yunching Library</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23112621'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23c9f75a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -32,6 +35,15 @@
         </div>
       </div>
     </header>
+
+    <nav class="section-switcher" aria-label="學習區域">
+      <a class="is-active" href="./index.html" aria-current="page">
+        <span>3D 大腦圖譜</span><small lang="en">Interactive atlas</small>
+      </a>
+      <a href="./topics.html">
+        <span>概念專題分頁</span><small lang="en">Four learning guides</small>
+      </a>
+    </nav>
 
     <section class="mode-bar" aria-label="圖譜視圖">
       <button class="mode-button is-active" type="button" data-mode="exterior">
@@ -58,6 +70,7 @@
         <p id="scenario-summary-zh"></p>
         <p id="scenario-summary-en" lang="en"></p>
         <div id="scenario-signals" class="scenario-signals"></div>
+        <a id="scenario-guide-link" class="scenario-guide-link" href="./topics.html" hidden>開啟完整概念分頁 <span lang="en">Open guide</span> →</a>
       </div>
     </section>
 

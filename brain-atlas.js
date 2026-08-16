@@ -550,8 +550,18 @@ const ui = {
   scenarioZh: document.querySelector('#scenario-summary-zh'),
   scenarioEn: document.querySelector('#scenario-summary-en'),
   scenarioSignals: document.querySelector('#scenario-signals'),
+  scenarioGuide: document.querySelector('#scenario-guide-link'),
   nodeLabels: document.querySelector('#scenario-node-labels')
 };
+
+function syncUrlState() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('mode', currentMode);
+  if (currentMode === 'emotion') url.searchParams.set('scenario', activeScenario);
+  else url.searchParams.delete('scenario');
+  if (selectedId) url.searchParams.set('structure', selectedId);
+  window.history.replaceState({}, '', url);
+}
 
 function setGroupVisibility(mode) {
   exteriorGroup.visible = mode === 'exterior';
@@ -626,7 +636,7 @@ function renderStructureList() {
   ui.count.textContent = `${ids.length} ${currentMode === 'chemical' ? 'signals' : 'structures'}`;
 }
 
-function selectStructure(id) {
+function selectStructure(id, syncAddress = true) {
   const data = structures[id];
   if (!data) return;
   const translated = structureTranslations[id] || {};
@@ -673,6 +683,7 @@ function selectStructure(id) {
   updateSelectionVisuals();
   updateScenarioLabelState();
   renderStructureList();
+  if (syncAddress) syncUrlState();
 }
 
 function updateScenarioLabelState() {
@@ -707,7 +718,12 @@ function positionScenarioNodeLabels() {
     hypothalamus: { x: 16, y: 8 },
     anteriorInsula: { x: -8, y: -16 },
     acc: { x: 10, y: -6 },
-    dlpfc: { x: 10, y: -22 }
+    dlpfc: { x: 10, y: -22 },
+    ventralStriatum: { x: -18, y: 24 },
+    mPfc: { x: 18, y: -34 },
+    pcc: { x: 10, y: 28 },
+    tpj: { x: -8, y: 18 },
+    hippocampus: { x: 12, y: 36 }
   };
   ui.nodeLabels.querySelectorAll('.scenario-node-label').forEach((label) => {
     const visual = emotionVisuals.get(label.dataset.structureId)?.[0];
@@ -746,27 +762,31 @@ function renderScenarioLens() {
     badge.textContent = `${chemicalSignals[id].name} · ${chemicalSignals[id].nameEn}`;
     return badge;
   }));
+  ui.scenarioGuide.hidden = !scenario.topic;
+  if (scenario.topic) ui.scenarioGuide.href = `./topics.html?topic=${scenario.topic}`;
 }
 
-function selectScenario(id) {
+function selectScenario(id, syncAddress = true) {
   activeScenario = id;
   renderScenarioLens();
   if (currentMode === 'emotion') {
-    selectStructure(emotionScenarios[id].nodes[0]);
+    selectStructure(emotionScenarios[id].nodes[0], false);
     renderScenarioNodeLabels();
   }
   else updateSelectionVisuals();
+  if (syncAddress) syncUrlState();
 }
 
-function setMode(mode) {
+function setMode(mode, syncAddress = true) {
   currentMode = mode;
   setGroupVisibility(mode);
   ui.emotionLens.hidden = mode !== 'emotion';
   document.querySelectorAll('.mode-button').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.mode === mode);
   });
-  selectStructure(modeDefaults[mode]);
+  selectStructure(modeDefaults[mode], false);
   renderScenarioNodeLabels();
+  if (syncAddress) syncUrlState();
 }
 
 document.querySelectorAll('.mode-button').forEach((button) => button.addEventListener('click', () => setMode(button.dataset.mode)));
@@ -886,8 +906,16 @@ function resize() {
 const resizeObserver = new ResizeObserver(resize);
 resizeObserver.observe(viewport);
 resize();
+const initialParams = new URLSearchParams(window.location.search);
+const requestedScenario = initialParams.get('scenario');
+if (requestedScenario && emotionScenarios[requestedScenario]) activeScenario = requestedScenario;
 renderScenarioLens();
-setMode('exterior');
+const requestedMode = initialParams.get('mode');
+const initialMode = modeIds[requestedMode] ? requestedMode : 'exterior';
+setMode(initialMode, false);
+const requestedStructure = initialParams.get('structure');
+if (requestedStructure && modeIds[initialMode].includes(requestedStructure)) selectStructure(requestedStructure, false);
+syncUrlState();
 ui.rotate.classList.toggle('is-active', autoRotate);
 ui.rotate.setAttribute('aria-pressed', String(autoRotate));
 

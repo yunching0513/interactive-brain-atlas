@@ -254,5 +254,29 @@ export const emotionScenarios = {
     nodes: ['dlpfc','mPfc','hippocampus','acc'], signals: ['serotonin','norepinephrine'],
     zh: '安全、時間、呼吸與重新評估可改變注意和身體狀態，使控制網絡更容易恢復；這是動態平衡，不是完全沒有情緒。',
     en: 'Safety, time, breathing and reappraisal can shift attention and bodily state so control networks recover. Regulation is dynamic balance, not an absence of emotion.'
+  },
+  rumination: {
+    label: '反芻與內耗', labelEn: 'Rumination & friction', color: '#8ba6bd', topic: 'rumination',
+    nodes: ['pcc','mPfc','anteriorInsula','acc','dlpfc','hippocampus'], signals: ['cortisol','norepinephrine','serotonin'],
+    zh: '重複性負向思考涉及自我參照、顯著性與控制網絡的動態失衡；它是跨診斷歷程，不是意志薄弱，也不能由腦圖直接診斷。',
+    en: 'Repetitive negative thinking involves shifting interactions among self-referential, salience and control networks. It is a transdiagnostic process—not weak will or a diagnosis from a brain map.'
+  },
+  romance: {
+    label: '戀愛與依附', labelEn: 'Love & attachment', color: '#e96f94', topic: 'love',
+    nodes: ['ventralStriatum','mPfc','hypothalamus','amygdala','hippocampus','tpj'], signals: ['dopamine','oxytocin','betaEndorphin'],
+    zh: '浪漫吸引、獎賞、社會記憶與依附由重疊網絡共同形成；動物研究提供機制線索，但不能推導個人的忠誠或關係形式。',
+    en: 'Attraction, reward, social memory and attachment emerge from overlapping systems. Animal studies offer mechanisms but cannot determine a person’s fidelity or relationship structure.'
+  },
+  outrage: {
+    label: '數位公憤', labelEn: 'Digital outrage', color: '#f06f52', topic: 'outrage',
+    nodes: ['amygdala','anteriorInsula','acc','ventralStriatum','dlpfc','tpj'], signals: ['dopamine','norepinephrine','oxytocin'],
+    zh: '低社會線索、群體規範與正向回饋可能放大道德公憤的表達；這是情境—平台—個體的迴圈，不存在單一「極端言論腦區」。',
+    en: 'Sparse social cues, group norms and social rewards can amplify outrage expression. This is a person–platform–context loop, not a single “extremism region.”'
+  },
+  deliberation: {
+    label: '公眾審議', labelEn: 'Public deliberation', color: '#63a87d', topic: 'deliberation',
+    nodes: ['dlpfc','mPfc','acc','tpj','anteriorInsula','hippocampus'], signals: ['norepinephrine','oxytocin','cortisol'],
+    zh: '安全、發言權、透明與回應性較能支持理解和控制；空間與流程只能改善互動條件，不能精準操控荷爾蒙或取代程序正義。',
+    en: 'Safety, voice, transparency and responsiveness can support understanding and control. Process design cannot precisely control hormones or replace procedural justice.'
   }
 };
